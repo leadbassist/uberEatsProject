@@ -1,6 +1,9 @@
 import { View, Text, StyleSheet, Image, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
+const DEFAULT_IMAGE =
+  "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/chicken-mole-1618004751.jpg";
+
 const DishListItem = ({ dish }) => {
   const navigation = useNavigation();
   return (
@@ -16,7 +19,12 @@ const DishListItem = ({ dish }) => {
         <Text style={styles.price}>$ {dish.price}</Text>
       </View>
       {dish.image && (
-        <Image source={{ uri: dish.image }} style={styles.image} />
+        <Image
+          source={{
+            uri: dish.image.startsWith("http") ? dish.image : DEFAULT_IMAGE,
+          }}
+          style={styles.image}
+        />
       )}
     </Pressable>
   );

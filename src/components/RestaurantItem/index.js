@@ -1,6 +1,9 @@
 import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
+const DEFAULT_IMAGE =
+  "https://media-cdn.tripadvisor.com/media/photo-s/16/e8/ee/30/1.jpg";
+
 const RestaurantItem = ({ restaurant }) => {
   const navigation = useNavigation();
 
@@ -12,7 +15,9 @@ const RestaurantItem = ({ restaurant }) => {
     <Pressable onPress={onPress} style={styles.restaurantContainer}>
       <Image
         source={{
-          uri: restaurant.image,
+          uri: restaurant.image.startsWith("http")
+            ? restaurant.image
+            : DEFAULT_IMAGE,
         }}
         style={styles.image}
       />
@@ -20,12 +25,12 @@ const RestaurantItem = ({ restaurant }) => {
         <View>
           <Text style={styles.title}>{restaurant.name}</Text>
           <Text style={styles.subtitle}>
-            ${restaurant.deliveryFee} &#8226; {restaurant.minDeliveryTime}-
-            {restaurant.maxDeliveryTime} minutes
+            ${restaurant.deliveryFee.toFixed(1)} &#8226;{" "}
+            {restaurant.minDeliveryTime}-{restaurant.maxDeliveryTime} minutes
           </Text>
         </View>
         <View style={styles.rating}>
-          <Text>{restaurant.rating}</Text>
+          <Text>{restaurant.rating.toFixed(1)}</Text>
         </View>
       </View>
     </Pressable>

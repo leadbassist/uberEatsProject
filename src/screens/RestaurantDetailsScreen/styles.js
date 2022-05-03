@@ -30,4 +30,16 @@ export default StyleSheet.create({
     fontSize: 18,
     letterSpacing: 0.7,
   },
+  button: {
+    backgroundColor: "black",
+    marginTop: "auto", // will move to bottom, maximizing the margin on top.
+    padding: 20,
+    alignItems: "center",
+    margin: 10,
+  },
+  buttonText: {
+    color: "white",
+    fontWeight: "600",
+    fontSize: 18,
+  },
 });

@@ -1,3 +1,14 @@
+// another one
+
+// extra file? copy of BasketScreen folder??
+
+// noticed this at video: day 2, timestamp: 4:58:04.
+// link: https://www.youtube.com/watch?v=WFo_IxhBxF4
+
+// i dont think this file is being used anywhere.
+
+// will keep it for now and work on the BaskScreen file instead
+
 import { View, Text, Image, FlatList } from "react-native";
 import BasketDishItem from "../../components/BasketDishItem";
 

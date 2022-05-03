@@ -1,13 +1,15 @@
 import { View, Text, StyleSheet } from "react-native";
 
 const BasketDishItem = ({ basketDish }) => {
+  console.log(basketDish);
+
   return (
     <View style={styles.row}>
       <View style={styles.quantityContainer}>
-        <Text>1</Text>
+        <Text>{basketDish.quantity}</Text>
       </View>
-      <Text style={styles.itemName}>{basketDish.name}</Text>
-      <Text style={styles.itemTotal}>${basketDish.price}</Text>
+      <Text style={styles.itemName}>{basketDish.Dish.name}</Text>
+      <Text style={styles.itemTotal}>${basketDish.Dish.price}</Text>
     </View>
   );
 };

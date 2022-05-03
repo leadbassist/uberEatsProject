@@ -1,15 +1,33 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
-
-import restaurants from "../../../assets/data/restaurants.json";
-
-const dish = restaurants[0].dishes[0]; // taking the first restaurant's first dish
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { DataStore } from "aws-amplify";
+import { Dish } from "../../models";
+import { useBasketContext } from "../../contexts/BasketContext";
+import { ActivityIndicator } from "react-native-paper";
 
 const DishDetailsScreen = () => {
   const [quantity, setQuantity] = useState(1);
+  const [dish, setDish] = useState(null);
+
   const navigation = useNavigation();
+
+  const route = useRoute();
+  const id = route.params?.id;
+
+  const { addDishToBasket } = useBasketContext();
+
+  useEffect(() => {
+    if (id) {
+      DataStore.query(Dish, id).then(setDish);
+    }
+  }, [id]);
+
+  const onAddToBasket = async () => {
+    await addDishToBasket(dish, quantity);
+    navigation.goBack();
+  };
 
   const onMinus = () => {
     if (quantity > 1) {
@@ -24,6 +42,10 @@ const DishDetailsScreen = () => {
   const getTotal = () => {
     return (dish.price * quantity).toFixed(2); // will ensure the total is always within 2dp.
   };
+
+  if (!dish) {
+    return <ActivityIndicator size={"large"} color="black" />;
+  }
 
   return (
     <View style={styles.page}>
@@ -47,10 +69,7 @@ const DishDetailsScreen = () => {
           onPress={onPlus}
         />
       </View>
-      <Pressable
-        onPress={() => navigation.navigate("Basket")}
-        style={styles.button}
-      >
+      <Pressable onPress={onAddToBasket} style={styles.button}>
         <Text style={styles.buttonText}>
           Add {quantity} items to basket &#8226; ${getTotal()}
         </Text>
