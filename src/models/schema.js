@@ -1,5 +1,94 @@
 export const schema = {
     "models": {
+        "Transporter": {
+            "name": "Transporter",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "name": {
+                    "name": "name",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "sub": {
+                    "name": "sub",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "lat": {
+                    "name": "lat",
+                    "isArray": false,
+                    "type": "Float",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "lng": {
+                    "name": "lng",
+                    "isArray": false,
+                    "type": "Float",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "transportationMode": {
+                    "name": "transportationMode",
+                    "isArray": false,
+                    "type": {
+                        "enum": "TransportationModes"
+                    },
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "Transporters",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
         "User": {
             "name": "User",
             "fields": {
@@ -176,6 +265,20 @@ export const schema = {
                         "associatedWith": "orderID"
                     }
                 },
+                "Transporter": {
+                    "name": "Transporter",
+                    "isArray": false,
+                    "type": {
+                        "model": "Transporter"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "HAS_ONE",
+                        "associatedWith": "id",
+                        "targetName": "orderTransporterId"
+                    }
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -194,6 +297,13 @@ export const schema = {
                 },
                 "orderRestaurantId": {
                     "name": "orderRestaurantId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "orderTransporterId": {
+                    "name": "orderTransporterId",
                     "isArray": false,
                     "type": "ID",
                     "isRequired": false,
@@ -765,6 +875,13 @@ export const schema = {
         }
     },
     "enums": {
+        "TransportationModes": {
+            "name": "TransportationModes",
+            "values": [
+                "DRIVING",
+                "BICYCLING"
+            ]
+        },
         "OrderStatus": {
             "name": "OrderStatus",
             "values": [
@@ -772,10 +889,11 @@ export const schema = {
                 "COOKING",
                 "READY_FOR_PICKUP",
                 "PICKED_UP",
-                "COMPLETED"
+                "COMPLETED",
+                "ACCEPTED"
             ]
         }
     },
     "nonModels": {},
-    "version": "6225a2c697c8242260c9d02979ce70c0"
+    "version": "4103f28808034c2caffd3fa9e668c700"
 };

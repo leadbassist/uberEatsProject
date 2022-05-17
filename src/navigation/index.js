@@ -5,11 +5,12 @@ import RestaurantDetailsScreen from "../../src/screens/RestaurantDetailsScreen";
 import DishDetailsScreen from "../../src/screens/DishDetailsScreen";
 import BasketScreen from "../../src/screens/BasketScreen";
 import OrderScreen from "../../src/screens/OrdersScreen";
-import OrderDetailsScreen from "../../src/screens/OrderDetailsScreen";
+// import OrderDetailsScreen from "../../src/screens/OrderDetailsScreen";
 import ProfileScreen from "../../src/screens/ProfileScreen";
 import { useAuthContext } from "../contexts/AuthContext";
 
 import { FontAwesome5, Octicons } from "@expo/vector-icons";
+import OrderDetailsNavigator from "./OrderDetailsNavigator";
 
 const Stack = createNativeStackNavigator();
 
@@ -45,7 +46,7 @@ const HomeTabs = () => {
         }}
       />
       <Tab.Screen
-        name="Orders"
+        name="OrdersTab"
         component={OrdersStackNavigator}
         options={{
           tabBarIcon: ({ color }) => (
@@ -89,7 +90,11 @@ const OrdersStackNavigator = () => {
   return (
     <OrdersStack.Navigator>
       <OrdersStack.Screen name="Orders" component={OrderScreen} />
-      <OrdersStack.Screen name="Order" component={OrderDetailsScreen} />
+      <OrdersStack.Screen
+        name="Order"
+        component={OrderDetailsNavigator}
+        screenOptions={{ headerShown: false }}
+      />
     </OrdersStack.Navigator>
   );
 };

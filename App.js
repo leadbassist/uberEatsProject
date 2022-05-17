@@ -8,6 +8,9 @@ import AuthContextProvider from "./src/contexts/AuthContext";
 import BasketContextProvider from "./src/contexts/BasketContext";
 import OrderContextProvider from "./src/contexts/OrderContext";
 
+import { LogBox } from "react-native";
+LogBox.ignoreLogs(["Setting a timer for a long period of time"]);
+
 Amplify.configure({
   ...config,
   Analytics: {

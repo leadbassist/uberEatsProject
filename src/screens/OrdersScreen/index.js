@@ -6,7 +6,7 @@ import { useOrderContext } from "../../contexts/OrderContext";
 
 const OrderScreen = () => {
   const { orders } = useOrderContext();
-  console.log(orders);
+  // console.log(orders);
 
   return (
     <View style={styles.container}>
